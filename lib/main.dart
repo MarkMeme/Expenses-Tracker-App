@@ -8,7 +8,7 @@ void main() {
 var kColorScheme = ColorScheme.fromSeed(seedColor: Colors.lightBlue);
 
 var kDarkColorScheme =
-    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 59, 32, 104));
+    ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 29, 51, 71));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,9 +18,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      darkTheme: ThemeData().copyWith(
+      themeMode: ThemeMode.system,
+      darkTheme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
           colorScheme: kDarkColorScheme,
+          cardTheme: const CardTheme(color: Color.fromARGB(180, 29, 51, 71)),
           appBarTheme: const AppBarTheme().copyWith(
               backgroundColor: kDarkColorScheme.onPrimaryContainer,
               foregroundColor: kDarkColorScheme.primaryContainer,
