@@ -1,8 +1,13 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 
 class NewExpenseSheet extends StatefulWidget {
+  final void Function(Expense expense) onAddExpense;
+
+  const NewExpenseSheet({super.key, required this.onAddExpense});
   @override
   State<NewExpenseSheet> createState() => _NewExpenseSheetState();
 }
@@ -31,7 +36,13 @@ class _NewExpenseSheetState extends State<NewExpenseSheet> {
 
   void submitForm() {
     if (_formKey.currentState!.validate() == true) {
-      print("done !");
+      double _sekectedAmount = double.tryParse(_amountContoller.text)!;
+      widget.onAddExpense(Expense(
+          title: _titleContoller.text,
+          amount: _sekectedAmount,
+          date: _selectedDate,
+          category: _selectedCategory));
+      Navigator.pop(context);
     }
   }
 
