@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:expense_tracker_app/models/expense.dart';
@@ -18,7 +16,7 @@ class _NewExpenseSheetState extends State<NewExpenseSheet> {
   var _selectedDate = DateTime.now();
   Category _selectedCategory = Category.leisure;
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   void _presenteDate() async {
     var now = DateTime.now();
