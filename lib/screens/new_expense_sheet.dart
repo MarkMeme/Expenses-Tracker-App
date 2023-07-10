@@ -53,86 +53,95 @@ class _NewExpenseSheetState extends State<NewExpenseSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter the Expense Title ';
-                  }
-                  return null;
-                },
-                controller: _titleContoller,
-                maxLength: 50,
-                decoration: const InputDecoration(label: Text('Expense Title')),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter the amount';
+                          return 'Please enter the Expense Title ';
                         }
                         return null;
                       },
-                      keyboardType: TextInputType.number,
-                      controller: _amountContoller,
-                      maxLength: 20,
-                      decoration: const InputDecoration(
-                          prefix: Text('\$ '), label: Text('Expense Amount')),
+                      controller: _titleContoller,
+                      maxLength: 50,
+                      decoration:
+                          const InputDecoration(label: Text('Expense Title')),
                     ),
-                  ),
-                  Expanded(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                          onPressed: _presenteDate,
-                          icon: const Icon(Icons.calendar_view_month_outlined)),
-                      Text(DateFormat.yMEd().format(_selectedDate))
-                    ],
-                  ))
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  DropdownButton(
-                      value: _selectedCategory,
-                      items: Category.values
-                          .map((value) => DropdownMenuItem(
-                                value: value,
-                                child: Text(value.name.toUpperCase()),
-                              ))
-                          .toList(),
-                      onChanged: (category) {
-                        if (category == null) {
-                          return;
-                        }
-                        setState(() {
-                          _selectedCategory = category;
-                        });
-                      }),
-                  const Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Cancel')),
-                  ElevatedButton(
-                      onPressed: submitForm,
-                      child: const Text('Save the title')),
-                ],
-              )
-            ],
-          )),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter the amount';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.number,
+                            controller: _amountContoller,
+                            maxLength: 20,
+                            decoration: const InputDecoration(
+                                prefix: Text('\$ '),
+                                label: Text('Expense Amount')),
+                          ),
+                        ),
+                        Expanded(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(
+                                onPressed: _presenteDate,
+                                icon: const Icon(
+                                    Icons.calendar_view_month_outlined)),
+                            Text(DateFormat.yMEd().format(_selectedDate))
+                          ],
+                        ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        DropdownButton(
+                            value: _selectedCategory,
+                            items: Category.values
+                                .map((value) => DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value.name.toUpperCase()),
+                                    ))
+                                .toList(),
+                            onChanged: (category) {
+                              if (category == null) {
+                                return;
+                              }
+                              setState(() {
+                                _selectedCategory = category;
+                              });
+                            }),
+                        const Spacer(),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel')),
+                        ElevatedButton(
+                            onPressed: submitForm,
+                            child: const Text('Save the title')),
+                      ],
+                    )
+                  ],
+                )),
+          ),
+        );
+      },
     );
   }
 }
