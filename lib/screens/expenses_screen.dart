@@ -50,6 +50,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.sizeOf(context).width;
     return Scaffold(
         appBar: AppBar(
           title: const Text("My Expense Tracker"),
@@ -59,17 +60,27 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 icon: const Icon(Icons.add_box_outlined))
           ],
         ),
-        body: _regesterdExpenses.isNotEmpty == true
-            ? Column(
+        body: width < 600
+            ? _regesterdExpenses.isNotEmpty == true
+                ? Column(
+                    children: [
+                      Chart(expenses: _regesterdExpenses),
+                      Expanded(
+                          child: ExpensesList(
+                              expenses: _regesterdExpenses,
+                              removeExpense: _onRemeveExpense)),
+                    ],
+                  )
+                : const Center(child: Text("Add some Expenses.."))
+            : Row(
                 children: [
-                  Chart(expenses: _regesterdExpenses),
+                  Expanded(child: Chart(expenses: _regesterdExpenses)),
                   Expanded(
                       child: ExpensesList(
                           expenses: _regesterdExpenses,
                           removeExpense: _onRemeveExpense)),
                 ],
-              )
-            : const Center(child: Text("Add some Expenses..")));
+              ));
   }
 
   _openNewEpenseSheet() {

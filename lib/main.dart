@@ -1,14 +1,20 @@
 import 'package:expense_tracker_app/screens/expenses_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  /*WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => 
+
+      */
   runApp(const MyApp());
 }
 
 var kColorScheme = ColorScheme.fromSeed(seedColor: Colors.lightBlue);
 
 var kDarkColorScheme =
-    ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 29, 51, 71));
+    ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 29, 51, 71));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,6 +26,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark().copyWith(
+          bottomSheetTheme:
+              const BottomSheetThemeData(backgroundColor: Colors.black),
           scaffoldBackgroundColor: Colors.black,
           colorScheme: kDarkColorScheme,
           cardTheme: const CardTheme(color: Color.fromARGB(180, 29, 51, 71)),
